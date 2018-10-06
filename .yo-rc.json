@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.robmelfi.store",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "5.4.1",
+    "applicationType": "monolith",
+    "baseName": "store",
+    "packageName": "com.robmelfi.store",
+    "packageFolder": "com/robmelfi/store",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MzcxYjMwN2U5YThmZTFmNmM2YzFiY2E5MGY5ZGI2NDk1ZmMzMTdkNWJhZTVmNTlhZmYxZGM3MTc5YWRhYzllMDE5NDA5Y2FlM2U1MmFiYmVkMzBlZGM2MWY4MjRkOTNmNTg3YmYxMjgwM2JjYmJlYWI5ODZlOGRjNWM4YTc3OWU=",
+    "clientFramework": "react",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "it"
+    ]
+  }
+}
