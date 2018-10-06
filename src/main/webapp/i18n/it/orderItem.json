@@ -1,0 +1,26 @@
+
+{
+    "storeApp": {
+        "orderItem" : {
+            "home": {
+                "title": "OrderItems",
+                "createLabel": "Genera un nuovo Order Item",
+                "createOrEditLabel": "Genera o modifica un Order Item"
+            },
+            "created": "&Egrave; stato generato un nuovo Order Item con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Order Item identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Order Item con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Order Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Item"
+            },
+            "quantity": "Quantity",
+            "totalPrice": "Total Price",
+            "status": "Status",
+            "product": "Product",
+            "order": "Order"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+
+{
+    "storeApp": {
+        "customer" : {
+            "home": {
+                "title": "Customers",
+                "createLabel": "Genera un nuovo Customer",
+                "createOrEditLabel": "Genera o modifica un Customer"
+            },
+            "created": "&Egrave; stato generato un nuovo Customer con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Customer identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Customer con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Customer {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "gender": "Gender",
+            "email": "Email",
+            "phone": "Phone",
+            "addressLine1": "Address Line 1",
+            "addressLine2": "Address Line 2",
+            "city": "City",
+            "country": "Country",
+            "user": "User",
+            "order": "Order"
+        }
+    }
+}

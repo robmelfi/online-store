@@ -1,0 +1,27 @@
+
+{
+    "storeApp": {
+        "productOrder" : {
+            "home": {
+                "title": "ProductOrders",
+                "createLabel": "Genera un nuovo Product Order",
+                "createOrEditLabel": "Genera o modifica un Product Order"
+            },
+            "created": "&Egrave; stato generato un nuovo Product Order con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato Product Order identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato Product Order con identificatore {{ param }}",
+            "delete": {
+                "question": "Sei sicuro di volere eliminare Product Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Product Order"
+            },
+            "placedDate": "Placed Date",
+            "status": "Status",
+            "code": "Code",
+            "orderItem": "Order Item",
+            "invoice": "Invoice",
+            "customer": "Customer"
+        }
+    }
+}
