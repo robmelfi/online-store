@@ -3,25 +3,26 @@
     "storeApp": {
         "product" : {
             "home": {
-                "title": "Products",
-                "createLabel": "Genera un nuovo Product",
-                "createOrEditLabel": "Genera o modifica un Product"
+                "title": "Prodotti",
+                "createLabel": "Aggiungi un Prodotto",
+                "createOrEditLabel": "Aggiungi o modifica un Prodotto"
             },
-            "created": "&Egrave; stato generato un nuovo Product con identificatore {{ param }}",
-            "updated": "&Egrave; stato aggiornato Product identificato da {{ param }}",
-            "deleted": "&Egrave; stato eliminato Product con identificatore {{ param }}",
+            "created": "&Egrave; stato aggiunto un nuovo Prodotto con identificatore {{ param }}",
+            "updated": "&Egrave; stato aggiornato un Prodotto identificato da {{ param }}",
+            "deleted": "&Egrave; stato eliminato un Prodotto con identificatore {{ param }}",
             "delete": {
-                "question": "Sei sicuro di volere eliminare Product {{ id }}?"
+                "question": "Sei sicuro di volere eliminare il Prodotto {{ id }}?"
             },
             "detail": {
-                "title": "Product"
+                "title": "Prodotto"
             },
-            "name": "Name",
-            "description": "Description",
-            "price": "Price",
-            "size": "Size",
-            "image": "Image",
-            "productCategory": "Product Category"
+            "name": "Nome",
+            "description": "Descrizione",
+            "price": "Prezzo",
+            "size": "Taglia",
+            "image": "Immagine",
+            "productCategory": "Categoria Prodotto",
+            "sort": "Ordina per"
         }
     }
 }

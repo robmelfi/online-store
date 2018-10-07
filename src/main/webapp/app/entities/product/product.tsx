@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, ButtonGroup, Col, Row, Table, ListGroup, ListGroupItem, Input } from 'reactstrap';
+import Currency from 'react-currency-formatter';
 // tslint:disable-next-line:no-unused-variable
 import {
   openFile,
@@ -19,8 +20,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './product.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IProductProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -58,86 +60,71 @@ export class Product extends React.Component<IProductProps, IProductState> {
   };
 
   render() {
-    const { productList, match, totalItems } = this.props;
+    const { productList, match, totalItems, isAuthenticated, isAdmin } = this.props;
     return (
       <div>
         <h2 id="product-heading">
           <Translate contentKey="storeApp.product.home.title">Products</Translate>
+          { isAuthenticated && isAdmin &&
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="storeApp.product.home.createLabel">Create new Product</Translate>
-          </Link>
+          </Link> }
         </h2>
-        <div className="table-responsive">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={this.sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('name')}>
-                  <Translate contentKey="storeApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('description')}>
-                  <Translate contentKey="storeApp.product.description">Description</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('price')}>
-                  <Translate contentKey="storeApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('size')}>
-                  <Translate contentKey="storeApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={this.sort('image')}>
-                  <Translate contentKey="storeApp.product.image">Image</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="storeApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {productList.map((product, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${product.id}`} color="link" size="sm">
-                      {product.id}
-                    </Button>
-                  </td>
-                  <td>{product.name}</td>
-                  <td>{product.description}</td>
-                  <td>{product.price}</td>
-                  <td>
-                    <Translate contentKey={`storeApp.Size.${product.size}`} />
-                  </td>
-                  <td>
-                    {product.image ? (
-                      <div>
+        <div className="mb-2 d-flex justify-content-end align-items-center">
+          <span className="mr-2 col-2">Filter by name</span>
+          <Input type="search" className="form-control"/>
+          <span className="col-2 text-right"><Translate contentKey="storeApp.product.sort">Sort by</Translate></span>
+          <ButtonGroup>
+            <Button size="sm" className="btn-light" onClick={this.sort('name')}>
+              <span><Translate contentKey="storeApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" /></span>
+            </Button>
+            <Button size="sm" className="btn-light" onClick={this.sort('price')}>
+              <span><Translate contentKey="storeApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" /></span>
+            </Button>
+            <Button size="sm" className="btn-light" onClick={this.sort('size')}>
+              <span><Translate contentKey="storeApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" /></span>
+            </Button>
+            <Button size="sm" className="btn-light">
+              <span><Translate contentKey="storeApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" /></span>
+            </Button>
+          </ButtonGroup>
+        </div>
+        <div className="mb-1">
+          <ListGroup>
+            {productList.map((product, i) => (
+              <ListGroupItem action tag="a" href={`#${match.url}/${product.id}`} className="flex-column align-items-start">
+                <Row>
+                  <Col sm="2" xs="12">
+                    <div className="d-flex justify-content-center">
+                      {product.image ? (
                         <a onClick={openFile(product.imageContentType, product.image)}>
-                          <img src={`data:${product.imageContentType};base64,${product.image}`} style={{ maxHeight: '30px' }} />
+                          <img src={`data:${product.imageContentType};base64,${product.image}`} style={{ maxHeight: '150px' }} />
                           &nbsp;
                         </a>
-                        <span>
-                          {product.imageContentType}, {byteSize(product.image)}
-                        </span>
-                      </div>
-                    ) : null}
-                  </td>
-                  <td>
-                    {product.productCategory ? (
-                      <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${product.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
+                      ) : null}
+                    </div>
+                  </Col>
+                  <Col sm="10" xs="12">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">{product.name}</h5>
+                      <small>
+                        {product.productCategory ? (
+                          <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.id}</Link>
+                        ) : (
+                          ''
+                        )}
+                      </small>
+                    </div>
+                    <small className="mb-1">{product.description}</small>
+                    <p className="mb-1"><Currency quantity={product.price} currency="USD"/></p>
+                    <small>
+                      <Translate contentKey="storeApp.product.size">Size</Translate>
+                      <span>
+                        :&nbsp;<Translate contentKey={`storeApp.Size.${product.size}`} />
+                      </span>
+                    </small>
+                    { isAuthenticated && isAdmin && <div>
                       <Button tag={Link} to={`${match.url}/${product.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
@@ -150,12 +137,12 @@ export class Product extends React.Component<IProductProps, IProductState> {
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
                       </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                    </div>}
+                  </Col>
+                </Row>
+              </ListGroupItem>
+            ))}
+          </ListGroup>
         </div>
         <Row className="justify-content-center">
           <JhiPagination
@@ -170,9 +157,11 @@ export class Product extends React.Component<IProductProps, IProductState> {
   }
 }
 
-const mapStateToProps = ({ product }: IRootState) => ({
+const mapStateToProps = ({ authentication, product }: IRootState) => ({
   productList: product.entities,
-  totalItems: product.totalItems
+  totalItems: product.totalItems,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = {
