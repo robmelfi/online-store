@@ -3,6 +3,7 @@ package com.robmelfi.store.web.rest;
 import com.robmelfi.store.StoreApp;
 
 import com.robmelfi.store.domain.Customer;
+import com.robmelfi.store.domain.User;
 import com.robmelfi.store.repository.CustomerRepository;
 import com.robmelfi.store.service.CustomerService;
 import com.robmelfi.store.web.rest.errors.ExceptionTranslator;
@@ -118,6 +119,11 @@ public class CustomerResourceIntTest {
             .addressLine2(DEFAULT_ADDRESS_LINE_2)
             .city(DEFAULT_CITY)
             .country(DEFAULT_COUNTRY);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        customer.setUser(user);
         return customer;
     }
 

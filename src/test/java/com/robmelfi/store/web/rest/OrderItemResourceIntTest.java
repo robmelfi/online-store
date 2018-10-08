@@ -3,6 +3,8 @@ package com.robmelfi.store.web.rest;
 import com.robmelfi.store.StoreApp;
 
 import com.robmelfi.store.domain.OrderItem;
+import com.robmelfi.store.domain.Product;
+import com.robmelfi.store.domain.ProductOrder;
 import com.robmelfi.store.repository.OrderItemRepository;
 import com.robmelfi.store.service.OrderItemService;
 import com.robmelfi.store.web.rest.errors.ExceptionTranslator;
@@ -95,6 +97,16 @@ public class OrderItemResourceIntTest {
             .quantity(DEFAULT_QUANTITY)
             .totalPrice(DEFAULT_TOTAL_PRICE)
             .status(DEFAULT_STATUS);
+        // Add required entity
+        Product product = ProductResourceIntTest.createEntity(em);
+        em.persist(product);
+        em.flush();
+        orderItem.setProduct(product);
+        // Add required entity
+        ProductOrder productOrder = ProductOrderResourceIntTest.createEntity(em);
+        em.persist(productOrder);
+        em.flush();
+        orderItem.setOrder(productOrder);
         return orderItem;
     }
 

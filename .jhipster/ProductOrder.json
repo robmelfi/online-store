@@ -39,6 +39,7 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "customer",
             "otherEntityName": "customer",
             "otherEntityField": "email"

@@ -22,6 +22,7 @@ export interface IInvoice {
   paymentMethod?: PaymentMethod;
   paymentDate?: Moment;
   paymentAmount?: number;
+  code?: string;
   shipments?: IShipment[];
   order?: IProductOrder;
 }

@@ -217,8 +217,13 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                   <Label for="user.login">
                     <Translate contentKey="storeApp.customer.user">User</Translate>
                   </Label>
-                  <AvInput id="customer-user" type="select" className="form-control" name="user.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="customer-user"
+                    type="select"
+                    className="form-control"
+                    name="user.id"
+                    value={isNew ? users[0] && users[0].id : customerEntity.user.id}
+                  >
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

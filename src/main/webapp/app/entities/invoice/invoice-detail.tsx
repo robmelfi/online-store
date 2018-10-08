@@ -69,6 +69,12 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
             </dt>
             <dd>{invoiceEntity.paymentAmount}</dd>
             <dt>
+              <span id="code">
+                <Translate contentKey="storeApp.invoice.code">Code</Translate>
+              </span>
+            </dt>
+            <dd>{invoiceEntity.code}</dd>
+            <dt>
               <Translate contentKey="storeApp.invoice.order">Order</Translate>
             </dt>
             <dd>{invoiceEntity.order ? invoiceEntity.order.code : ''}</dd>

@@ -68,6 +68,7 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "user",
             "otherEntityName": "user",
             "otherEntityField": "login",

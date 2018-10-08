@@ -152,8 +152,13 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                   <Label for="product.name">
                     <Translate contentKey="storeApp.orderItem.product">Product</Translate>
                   </Label>
-                  <AvInput id="order-item-product" type="select" className="form-control" name="product.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="order-item-product"
+                    type="select"
+                    className="form-control"
+                    name="product.id"
+                    value={isNew ? products[0] && products[0].id : orderItemEntity.product.id}
+                  >
                     {products
                       ? products.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
@@ -167,8 +172,13 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                   <Label for="order.code">
                     <Translate contentKey="storeApp.orderItem.order">Order</Translate>
                   </Label>
-                  <AvInput id="order-item-order" type="select" className="form-control" name="order.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="order-item-order"
+                    type="select"
+                    className="form-control"
+                    name="order.id"
+                    value={isNew ? productOrders[0] && productOrders[0].id : orderItemEntity.order.id}
+                  >
                     {productOrders
                       ? productOrders.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

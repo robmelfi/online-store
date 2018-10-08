@@ -146,8 +146,13 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                   <Label for="customer.email">
                     <Translate contentKey="storeApp.productOrder.customer">Customer</Translate>
                   </Label>
-                  <AvInput id="product-order-customer" type="select" className="form-control" name="customer.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="product-order-customer"
+                    type="select"
+                    className="form-control"
+                    name="customer.id"
+                    value={isNew ? customers[0] && customers[0].id : productOrderEntity.customer.id}
+                  >
                     {customers
                       ? customers.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

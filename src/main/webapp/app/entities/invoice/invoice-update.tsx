@@ -188,11 +188,29 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="codeLabel" for="code">
+                    <Translate contentKey="storeApp.invoice.code">Code</Translate>
+                  </Label>
+                  <AvField
+                    id="invoice-code"
+                    type="text"
+                    name="code"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
                   <Label for="order.code">
                     <Translate contentKey="storeApp.invoice.order">Order</Translate>
                   </Label>
-                  <AvInput id="invoice-order" type="select" className="form-control" name="order.id">
-                    <option value="" key="0" />
+                  <AvInput
+                    id="invoice-order"
+                    type="select"
+                    className="form-control"
+                    name="order.id"
+                    value={isNew ? productOrders[0] && productOrders[0].id : invoiceEntity.order.id}
+                  >
                     {productOrders
                       ? productOrders.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>

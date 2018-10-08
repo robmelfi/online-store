@@ -3,6 +3,7 @@ package com.robmelfi.store.web.rest;
 import com.robmelfi.store.StoreApp;
 
 import com.robmelfi.store.domain.ProductOrder;
+import com.robmelfi.store.domain.Customer;
 import com.robmelfi.store.repository.ProductOrderRepository;
 import com.robmelfi.store.service.ProductOrderService;
 import com.robmelfi.store.web.rest.errors.ExceptionTranslator;
@@ -96,6 +97,11 @@ public class ProductOrderResourceIntTest {
             .placedDate(DEFAULT_PLACED_DATE)
             .status(DEFAULT_STATUS)
             .code(DEFAULT_CODE);
+        // Add required entity
+        Customer customer = CustomerResourceIntTest.createEntity(em);
+        em.persist(customer);
+        em.flush();
+        productOrder.setCustomer(customer);
         return productOrder;
     }
 
