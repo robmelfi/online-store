@@ -26,16 +26,25 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IProductProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IProductState = IPaginationBaseState;
+export interface IProductState extends IPaginationBaseState {
+  inputFilter: string;
+}
 
 export class Product extends React.Component<IProductProps, IProductState> {
   state: IProductState = {
-    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+    ...getSortState(this.props.location, ITEMS_PER_PAGE),
+    inputFilter: ''
   };
 
   componentDidMount() {
     this.getEntities();
   }
+
+  onChangeHandler = e => {
+    this.setState({
+      inputFilter: e.target.value
+    });
+  };
 
   sort = prop => () => {
     this.setState(
@@ -73,7 +82,7 @@ export class Product extends React.Component<IProductProps, IProductState> {
         </h2>
         <div className="mb-2 d-flex justify-content-end align-items-center">
           <span className="mr-2 col-2">Filter by name</span>
-          <Input type="search" className="form-control"/>
+          <Input type="search" className="form-control" value={this.state.inputFilter} onChange={this.onChangeHandler}/>
           <span className="col-2 text-right"><Translate contentKey="storeApp.product.sort">Sort by</Translate></span>
           <ButtonGroup>
             <Button size="sm" className="btn-light" onClick={this.sort('name')}>
@@ -92,7 +101,8 @@ export class Product extends React.Component<IProductProps, IProductState> {
         </div>
         <div className="mb-1">
           <ListGroup>
-            {productList.map((product, i) => (
+            {productList.filter(p => this.state.inputFilter === '' || p.name.toLowerCase().includes(this.state.inputFilter.toLowerCase()))
+              .map((product, i) => (
               <ListGroupItem action tag="a" href={`#${match.url}/${product.id}`} className="flex-column align-items-start">
                 <Row>
                   <Col sm="2" xs="12">
