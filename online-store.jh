@@ -67,19 +67,19 @@ entity Shipment {
 }
 
 relationship OneToOne {
-   Customer{user} to User
+   Customer{user(login)} to User
 }
 
 relationship ManyToOne {
-   OrderItem{product} to Product
+   OrderItem{product(name)} to Product
 }
 
 relationship OneToMany {
-   Customer{order} to ProductOrder{customer},
-   ProductOrder{orderItem} to OrderItem{order},
-   ProductOrder{invoice} to Invoice{order},
-   Invoice{shipment} to Shipment{invoice},
-   ProductCategory{product} to Product{productCategory}
+   Customer{order} to ProductOrder{customer(email)},
+   ProductOrder{orderItem} to OrderItem{order(code)},
+   ProductOrder{invoice} to Invoice{order(code)},
+   Invoice{shipment} to Shipment{invoice(code)},
+   ProductCategory{product} to Product{productCategory(name)}
 }
 
 service * with serviceClass
