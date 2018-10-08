@@ -70,7 +70,7 @@
             "relationshipType": "one-to-one",
             "relationshipName": "user",
             "otherEntityName": "user",
-            "otherEntityField": "id",
+            "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "customer"
         },

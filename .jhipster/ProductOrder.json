@@ -41,7 +41,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "customer",
             "otherEntityName": "customer",
-            "otherEntityField": "id"
+            "otherEntityField": "email"
         }
     ],
     "changelogDate": "20181006203251",

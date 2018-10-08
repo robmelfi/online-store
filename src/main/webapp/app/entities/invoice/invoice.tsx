@@ -120,7 +120,7 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
                     <TextFormat type="date" value={invoice.paymentDate} format={APP_DATE_FORMAT} />
                   </td>
                   <td>{invoice.paymentAmount}</td>
-                  <td>{invoice.order ? <Link to={`product-order/${invoice.order.id}`}>{invoice.order.id}</Link> : ''}</td>
+                  <td>{invoice.order ? <Link to={`product-order/${invoice.order.id}`}>{invoice.order.code}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${invoice.id}`} color="info" size="sm">

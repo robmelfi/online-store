@@ -143,7 +143,7 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="customer.id">
+                  <Label for="customer.email">
                     <Translate contentKey="storeApp.productOrder.customer">Customer</Translate>
                   </Label>
                   <AvInput id="product-order-customer" type="select" className="form-control" name="customer.id">
@@ -151,7 +151,7 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                     {customers
                       ? customers.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.email}
                           </option>
                         ))
                       : null}

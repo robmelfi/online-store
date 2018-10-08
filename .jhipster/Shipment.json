@@ -22,7 +22,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "invoice",
             "otherEntityName": "invoice",
-            "otherEntityField": "id"
+            "otherEntityField": "code"
         }
     ],
     "changelogDate": "20181006203254",

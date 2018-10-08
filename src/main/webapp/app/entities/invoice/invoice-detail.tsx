@@ -71,7 +71,7 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
             <dt>
               <Translate contentKey="storeApp.invoice.order">Order</Translate>
             </dt>
-            <dd>{invoiceEntity.order ? invoiceEntity.order.id : ''}</dd>
+            <dd>{invoiceEntity.order ? invoiceEntity.order.code : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/invoice" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

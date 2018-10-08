@@ -214,7 +214,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="user.id">
+                  <Label for="user.login">
                     <Translate contentKey="storeApp.customer.user">User</Translate>
                   </Label>
                   <AvInput id="customer-user" type="select" className="form-control" name="user.id">
@@ -222,7 +222,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.login}
                           </option>
                         ))
                       : null}

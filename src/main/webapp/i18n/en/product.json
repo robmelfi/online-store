@@ -21,8 +21,7 @@
             "price": "Price",
             "size": "Size",
             "image": "Image",
-            "productCategory": "Product Category",
-            "sort": "Sort by"
+            "productCategory": "Product Category"
         }
     }
 }

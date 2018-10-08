@@ -33,13 +33,13 @@
             "relationshipType": "many-to-one",
             "relationshipName": "product",
             "otherEntityName": "product",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "order",
             "otherEntityName": "productOrder",
-            "otherEntityField": "id"
+            "otherEntityField": "code"
         }
     ],
     "changelogDate": "20181006203252",

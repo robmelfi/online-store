@@ -188,7 +188,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="order.id">
+                  <Label for="order.code">
                     <Translate contentKey="storeApp.invoice.order">Order</Translate>
                   </Label>
                   <AvInput id="invoice-order" type="select" className="form-control" name="order.id">
@@ -196,7 +196,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                     {productOrders
                       ? productOrders.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.code}
                           </option>
                         ))
                       : null}

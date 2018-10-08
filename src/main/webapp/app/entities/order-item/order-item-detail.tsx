@@ -49,11 +49,11 @@ export class OrderItemDetail extends React.Component<IOrderItemDetailProps> {
             <dt>
               <Translate contentKey="storeApp.orderItem.product">Product</Translate>
             </dt>
-            <dd>{orderItemEntity.product ? orderItemEntity.product.id : ''}</dd>
+            <dd>{orderItemEntity.product ? orderItemEntity.product.name : ''}</dd>
             <dt>
               <Translate contentKey="storeApp.orderItem.order">Order</Translate>
             </dt>
-            <dd>{orderItemEntity.order ? orderItemEntity.order.id : ''}</dd>
+            <dd>{orderItemEntity.order ? orderItemEntity.order.code : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/order-item" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

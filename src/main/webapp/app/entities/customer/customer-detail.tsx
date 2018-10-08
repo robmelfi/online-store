@@ -85,7 +85,7 @@ export class CustomerDetail extends React.Component<ICustomerDetailProps> {
             <dt>
               <Translate contentKey="storeApp.customer.user">User</Translate>
             </dt>
-            <dd>{customerEntity.user ? customerEntity.user.id : ''}</dd>
+            <dd>{customerEntity.user ? customerEntity.user.login : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/customer" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

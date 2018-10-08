@@ -54,7 +54,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "order",
             "otherEntityName": "productOrder",
-            "otherEntityField": "id"
+            "otherEntityField": "code"
         }
     ],
     "changelogDate": "20181006203253",
