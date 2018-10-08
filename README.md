@@ -1,7 +1,7 @@
 # store
-This application refers to the book "**Full Stack Development with JHipster** by Deepu K Sasidharan and Sendil Kumar”.
+This Application refers to the book "**Full Stack Development with JHipster** by Deepu K Sasidharan and Sendil Kumar”.
 
-In this application the examples of the book are made using React instead of Angular.
+In this app the examples of the book are made using React instead of Angular.
 
 This application was generated using JHipster 5.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.4.1](https://www.jhipster.tech/documentation-archive/v5.4.1).
 
