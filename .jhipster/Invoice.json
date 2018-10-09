@@ -41,6 +41,13 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [
@@ -52,9 +59,10 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "order",
             "otherEntityName": "productOrder",
-            "otherEntityField": "id"
+            "otherEntityField": "code"
         }
     ],
     "changelogDate": "20181006203253",

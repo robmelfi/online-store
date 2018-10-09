@@ -15,7 +15,7 @@ describe('Invoice e2e test', () => {
   let signInPage: SignInPage;
   let invoiceUpdatePage: InvoiceUpdatePage;
   let invoiceComponentsPage: InvoiceComponentsPage;
-  let invoiceDeleteDialog: InvoiceDeleteDialog;
+  /*let invoiceDeleteDialog: InvoiceDeleteDialog;*/
 
   before(async () => {
     await browser.get('/');
@@ -43,41 +43,43 @@ describe('Invoice e2e test', () => {
     expect(await invoiceUpdatePage.getPageTitle().getAttribute('id')).to.match(/storeApp.invoice.home.createOrEditLabel/);
   });
 
-  it('should create and save Invoices', async () => {
-    const nbButtonsBeforeCreate = await invoiceComponentsPage.countDeleteButtons();
+  /* it('should create and save Invoices', async () => {
+        const nbButtonsBeforeCreate = await invoiceComponentsPage.countDeleteButtons();
 
-    await invoiceUpdatePage.setDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await invoiceUpdatePage.getDateInput()).to.contain('2001-01-01T02:30');
-    await invoiceUpdatePage.setDetailsInput('details');
-    expect(await invoiceUpdatePage.getDetailsInput()).to.match(/details/);
-    await invoiceUpdatePage.statusSelectLastOption();
-    await invoiceUpdatePage.paymentMethodSelectLastOption();
-    await invoiceUpdatePage.setPaymentDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await invoiceUpdatePage.getPaymentDateInput()).to.contain('2001-01-01T02:30');
-    await invoiceUpdatePage.setPaymentAmountInput('5');
-    expect(await invoiceUpdatePage.getPaymentAmountInput()).to.eq('5');
-    await invoiceUpdatePage.orderSelectLastOption();
-    await waitUntilDisplayed(invoiceUpdatePage.getSaveButton());
-    await invoiceUpdatePage.save();
-    await waitUntilHidden(invoiceUpdatePage.getSaveButton());
-    expect(await invoiceUpdatePage.getSaveButton().isPresent()).to.be.false;
+        await invoiceUpdatePage.setDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await invoiceUpdatePage.getDateInput()).to.contain('2001-01-01T02:30');
+        await invoiceUpdatePage.setDetailsInput('details');
+        expect(await invoiceUpdatePage.getDetailsInput()).to.match(/details/);
+        await invoiceUpdatePage.statusSelectLastOption();
+        await invoiceUpdatePage.paymentMethodSelectLastOption();
+        await invoiceUpdatePage.setPaymentDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await invoiceUpdatePage.getPaymentDateInput()).to.contain('2001-01-01T02:30');
+        await invoiceUpdatePage.setPaymentAmountInput('5');
+        expect(await invoiceUpdatePage.getPaymentAmountInput()).to.eq('5');
+        await invoiceUpdatePage.setCodeInput('code');
+        expect(await invoiceUpdatePage.getCodeInput()).to.match(/code/);
+        await invoiceUpdatePage.orderSelectLastOption();
+        await waitUntilDisplayed(invoiceUpdatePage.getSaveButton());
+        await invoiceUpdatePage.save();
+        await waitUntilHidden(invoiceUpdatePage.getSaveButton());
+        expect(await invoiceUpdatePage.getSaveButton().isPresent()).to.be.false;
 
-    await invoiceComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
-    expect(await invoiceComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
-  });
+        await invoiceComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
+        expect(await invoiceComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
+    });*/
 
-  it('should delete last Invoice', async () => {
-    await invoiceComponentsPage.waitUntilLoaded();
-    const nbButtonsBeforeDelete = await invoiceComponentsPage.countDeleteButtons();
-    await invoiceComponentsPage.clickOnLastDeleteButton();
+  /* it('should delete last Invoice', async () => {
+        await invoiceComponentsPage.waitUntilLoaded();
+        const nbButtonsBeforeDelete = await invoiceComponentsPage.countDeleteButtons();
+        await invoiceComponentsPage.clickOnLastDeleteButton();
 
-    invoiceDeleteDialog = new InvoiceDeleteDialog();
-    expect(await invoiceDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.invoice.delete.question/);
-    await invoiceDeleteDialog.clickOnConfirmButton();
+        invoiceDeleteDialog = new InvoiceDeleteDialog();
+        expect(await invoiceDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.invoice.delete.question/);
+        await invoiceDeleteDialog.clickOnConfirmButton();
 
-    await invoiceComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
-    expect(await invoiceComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-  });
+        await invoiceComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
+        expect(await invoiceComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
+    });*/
 
   after(async () => {
     await navBarPage.autoSignOut();

@@ -15,7 +15,7 @@ describe('Shipment e2e test', () => {
   let signInPage: SignInPage;
   let shipmentUpdatePage: ShipmentUpdatePage;
   let shipmentComponentsPage: ShipmentComponentsPage;
-  let shipmentDeleteDialog: ShipmentDeleteDialog;
+  /*let shipmentDeleteDialog: ShipmentDeleteDialog;*/
 
   before(async () => {
     await browser.get('/');
@@ -43,37 +43,37 @@ describe('Shipment e2e test', () => {
     expect(await shipmentUpdatePage.getPageTitle().getAttribute('id')).to.match(/storeApp.shipment.home.createOrEditLabel/);
   });
 
-  it('should create and save Shipments', async () => {
-    const nbButtonsBeforeCreate = await shipmentComponentsPage.countDeleteButtons();
+  /* it('should create and save Shipments', async () => {
+        const nbButtonsBeforeCreate = await shipmentComponentsPage.countDeleteButtons();
 
-    await shipmentUpdatePage.setTrackingCodeInput('trackingCode');
-    expect(await shipmentUpdatePage.getTrackingCodeInput()).to.match(/trackingCode/);
-    await shipmentUpdatePage.setDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await shipmentUpdatePage.getDateInput()).to.contain('2001-01-01T02:30');
-    await shipmentUpdatePage.setDetailsInput('details');
-    expect(await shipmentUpdatePage.getDetailsInput()).to.match(/details/);
-    await shipmentUpdatePage.invoiceSelectLastOption();
-    await waitUntilDisplayed(shipmentUpdatePage.getSaveButton());
-    await shipmentUpdatePage.save();
-    await waitUntilHidden(shipmentUpdatePage.getSaveButton());
-    expect(await shipmentUpdatePage.getSaveButton().isPresent()).to.be.false;
+        await shipmentUpdatePage.setTrackingCodeInput('trackingCode');
+        expect(await shipmentUpdatePage.getTrackingCodeInput()).to.match(/trackingCode/);
+        await shipmentUpdatePage.setDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await shipmentUpdatePage.getDateInput()).to.contain('2001-01-01T02:30');
+        await shipmentUpdatePage.setDetailsInput('details');
+        expect(await shipmentUpdatePage.getDetailsInput()).to.match(/details/);
+        await shipmentUpdatePage.invoiceSelectLastOption();
+        await waitUntilDisplayed(shipmentUpdatePage.getSaveButton());
+        await shipmentUpdatePage.save();
+        await waitUntilHidden(shipmentUpdatePage.getSaveButton());
+        expect(await shipmentUpdatePage.getSaveButton().isPresent()).to.be.false;
 
-    await shipmentComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
-    expect(await shipmentComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
-  });
+        await shipmentComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
+        expect(await shipmentComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
+    });*/
 
-  it('should delete last Shipment', async () => {
-    await shipmentComponentsPage.waitUntilLoaded();
-    const nbButtonsBeforeDelete = await shipmentComponentsPage.countDeleteButtons();
-    await shipmentComponentsPage.clickOnLastDeleteButton();
+  /* it('should delete last Shipment', async () => {
+        await shipmentComponentsPage.waitUntilLoaded();
+        const nbButtonsBeforeDelete = await shipmentComponentsPage.countDeleteButtons();
+        await shipmentComponentsPage.clickOnLastDeleteButton();
 
-    shipmentDeleteDialog = new ShipmentDeleteDialog();
-    expect(await shipmentDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.shipment.delete.question/);
-    await shipmentDeleteDialog.clickOnConfirmButton();
+        shipmentDeleteDialog = new ShipmentDeleteDialog();
+        expect(await shipmentDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.shipment.delete.question/);
+        await shipmentDeleteDialog.clickOnConfirmButton();
 
-    await shipmentComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
-    expect(await shipmentComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-  });
+        await shipmentComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
+        expect(await shipmentComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
+    });*/
 
   after(async () => {
     await navBarPage.autoSignOut();

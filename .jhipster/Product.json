@@ -40,7 +40,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "productCategory",
             "otherEntityName": "productCategory",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20181006203248",

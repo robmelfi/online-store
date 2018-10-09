@@ -31,15 +31,17 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "product",
             "otherEntityName": "product",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "order",
             "otherEntityName": "productOrder",
-            "otherEntityField": "id"
+            "otherEntityField": "code"
         }
     ],
     "changelogDate": "20181006203252",

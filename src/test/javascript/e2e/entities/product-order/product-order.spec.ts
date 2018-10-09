@@ -15,7 +15,7 @@ describe('ProductOrder e2e test', () => {
   let signInPage: SignInPage;
   let productOrderUpdatePage: ProductOrderUpdatePage;
   let productOrderComponentsPage: ProductOrderComponentsPage;
-  let productOrderDeleteDialog: ProductOrderDeleteDialog;
+  /*let productOrderDeleteDialog: ProductOrderDeleteDialog;*/
 
   before(async () => {
     await browser.get('/');
@@ -43,36 +43,36 @@ describe('ProductOrder e2e test', () => {
     expect(await productOrderUpdatePage.getPageTitle().getAttribute('id')).to.match(/storeApp.productOrder.home.createOrEditLabel/);
   });
 
-  it('should create and save ProductOrders', async () => {
-    const nbButtonsBeforeCreate = await productOrderComponentsPage.countDeleteButtons();
+  /* it('should create and save ProductOrders', async () => {
+        const nbButtonsBeforeCreate = await productOrderComponentsPage.countDeleteButtons();
 
-    await productOrderUpdatePage.setPlacedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await productOrderUpdatePage.getPlacedDateInput()).to.contain('2001-01-01T02:30');
-    await productOrderUpdatePage.statusSelectLastOption();
-    await productOrderUpdatePage.setCodeInput('code');
-    expect(await productOrderUpdatePage.getCodeInput()).to.match(/code/);
-    await productOrderUpdatePage.customerSelectLastOption();
-    await waitUntilDisplayed(productOrderUpdatePage.getSaveButton());
-    await productOrderUpdatePage.save();
-    await waitUntilHidden(productOrderUpdatePage.getSaveButton());
-    expect(await productOrderUpdatePage.getSaveButton().isPresent()).to.be.false;
+        await productOrderUpdatePage.setPlacedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(await productOrderUpdatePage.getPlacedDateInput()).to.contain('2001-01-01T02:30');
+        await productOrderUpdatePage.statusSelectLastOption();
+        await productOrderUpdatePage.setCodeInput('code');
+        expect(await productOrderUpdatePage.getCodeInput()).to.match(/code/);
+        await productOrderUpdatePage.customerSelectLastOption();
+        await waitUntilDisplayed(productOrderUpdatePage.getSaveButton());
+        await productOrderUpdatePage.save();
+        await waitUntilHidden(productOrderUpdatePage.getSaveButton());
+        expect(await productOrderUpdatePage.getSaveButton().isPresent()).to.be.false;
 
-    await productOrderComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
-    expect(await productOrderComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
-  });
+        await productOrderComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeCreate + 1);
+        expect(await productOrderComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1);
+    });*/
 
-  it('should delete last ProductOrder', async () => {
-    await productOrderComponentsPage.waitUntilLoaded();
-    const nbButtonsBeforeDelete = await productOrderComponentsPage.countDeleteButtons();
-    await productOrderComponentsPage.clickOnLastDeleteButton();
+  /* it('should delete last ProductOrder', async () => {
+        await productOrderComponentsPage.waitUntilLoaded();
+        const nbButtonsBeforeDelete = await productOrderComponentsPage.countDeleteButtons();
+        await productOrderComponentsPage.clickOnLastDeleteButton();
 
-    productOrderDeleteDialog = new ProductOrderDeleteDialog();
-    expect(await productOrderDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.productOrder.delete.question/);
-    await productOrderDeleteDialog.clickOnConfirmButton();
+        productOrderDeleteDialog = new ProductOrderDeleteDialog();
+        expect(await productOrderDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/storeApp.productOrder.delete.question/);
+        await productOrderDeleteDialog.clickOnConfirmButton();
 
-    await productOrderComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
-    expect(await productOrderComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-  });
+        await productOrderComponentsPage.waitUntilDeleteButtonsLength(nbButtonsBeforeDelete - 1);
+        expect(await productOrderComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
+    });*/
 
   after(async () => {
     await navBarPage.autoSignOut();

@@ -35,11 +35,11 @@
             </column>
 
             <column name="product_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="order_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

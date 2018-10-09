@@ -10,6 +10,7 @@ export default class InvoiceUpdatePage {
   paymentMethodSelect: ElementFinder = element(by.css('select#invoice-paymentMethod'));
   paymentDateInput: ElementFinder = element(by.css('input#invoice-paymentDate'));
   paymentAmountInput: ElementFinder = element(by.css('input#invoice-paymentAmount'));
+  codeInput: ElementFinder = element(by.css('input#invoice-code'));
   orderSelect: ElementFinder = element(by.css('select#invoice-order'));
 
   getPageTitle() {
@@ -74,6 +75,14 @@ export default class InvoiceUpdatePage {
 
   async getPaymentAmountInput() {
     return this.paymentAmountInput.getAttribute('value');
+  }
+
+  async setCodeInput(code) {
+    await this.codeInput.sendKeys(code);
+  }
+
+  async getCodeInput() {
+    return this.codeInput.getAttribute('value');
   }
 
   async orderSelectLastOption() {

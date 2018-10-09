@@ -3,6 +3,7 @@ package com.robmelfi.store.web.rest;
 import com.robmelfi.store.StoreApp;
 
 import com.robmelfi.store.domain.Shipment;
+import com.robmelfi.store.domain.Invoice;
 import com.robmelfi.store.repository.ShipmentRepository;
 import com.robmelfi.store.service.ShipmentService;
 import com.robmelfi.store.web.rest.errors.ExceptionTranslator;
@@ -95,6 +96,11 @@ public class ShipmentResourceIntTest {
             .trackingCode(DEFAULT_TRACKING_CODE)
             .date(DEFAULT_DATE)
             .details(DEFAULT_DETAILS);
+        // Add required entity
+        Invoice invoice = InvoiceResourceIntTest.createEntity(em);
+        em.persist(invoice);
+        em.flush();
+        shipment.setInvoice(invoice);
         return shipment;
     }
 

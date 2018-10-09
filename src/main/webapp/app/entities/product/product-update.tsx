@@ -193,7 +193,7 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                   </AvGroup>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="productCategory.id">
+                  <Label for="productCategory.name">
                     <Translate contentKey="storeApp.product.productCategory">Product Category</Translate>
                   </Label>
                   <AvInput id="product-productCategory" type="select" className="form-control" name="productCategory.id">
@@ -201,7 +201,7 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                     {productCategories
                       ? productCategories.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}

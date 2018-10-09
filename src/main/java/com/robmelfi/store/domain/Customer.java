@@ -65,7 +65,8 @@ public class Customer implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @OneToOne    @JoinColumn(unique = true)
+    @OneToOne(optional = false)    @NotNull
+    @JoinColumn(unique = true)
     private User user;
 
     @OneToMany(mappedBy = "customer")

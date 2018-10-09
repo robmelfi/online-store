@@ -51,7 +51,7 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
             <dt>
               <Translate contentKey="storeApp.productOrder.customer">Customer</Translate>
             </dt>
-            <dd>{productOrderEntity.customer ? productOrderEntity.customer.id : ''}</dd>
+            <dd>{productOrderEntity.customer ? productOrderEntity.customer.email : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/product-order" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
