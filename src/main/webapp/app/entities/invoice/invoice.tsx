@@ -18,8 +18,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './invoice.reducer';
 import { IInvoice } from 'app/shared/model/invoice.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IInvoiceProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -57,15 +58,16 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
   };
 
   render() {
-    const { invoiceList, match, totalItems } = this.props;
+    const { invoiceList, match, totalItems, isAuthenticated, isAdmin } = this.props;
     return (
       <div>
         <h2 id="invoice-heading">
           <Translate contentKey="storeApp.invoice.home.title">Invoices</Translate>
+          { isAuthenticated && isAdmin &&
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="storeApp.invoice.home.createLabel">Create new Invoice</Translate>
-          </Link>
+          </Link> }
         </h2>
         <div className="table-responsive">
           <Table responsive>
@@ -133,18 +135,20 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${invoice.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
+                      </Button> }
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${invoice.id}/delete`} color="danger" size="sm">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
-                      </Button>
+                      </Button> }
                     </div>
                   </td>
                 </tr>
@@ -165,9 +169,11 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
   }
 }
 
-const mapStateToProps = ({ invoice }: IRootState) => ({
+const mapStateToProps = ({ invoice, authentication }: IRootState) => ({
   invoiceList: invoice.entities,
-  totalItems: invoice.totalItems
+  totalItems: invoice.totalItems,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = {

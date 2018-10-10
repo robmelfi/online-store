@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,6 +50,7 @@ public class ShipmentResource {
      */
     @PostMapping("/shipments")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Shipment> createShipment(@Valid @RequestBody Shipment shipment) throws URISyntaxException {
         log.debug("REST request to save Shipment : {}", shipment);
         if (shipment.getId() != null) {
@@ -71,6 +73,7 @@ public class ShipmentResource {
      */
     @PutMapping("/shipments")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Shipment> updateShipment(@Valid @RequestBody Shipment shipment) throws URISyntaxException {
         log.debug("REST request to update Shipment : {}", shipment);
         if (shipment.getId() == null) {
@@ -119,6 +122,7 @@ public class ShipmentResource {
      */
     @DeleteMapping("/shipments/{id}")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteShipment(@PathVariable Long id) {
         log.debug("REST request to delete Shipment : {}", id);
         shipmentService.delete(id);

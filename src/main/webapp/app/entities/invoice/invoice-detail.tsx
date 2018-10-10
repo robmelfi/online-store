@@ -10,7 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './invoice.reducer';
 import { IInvoice } from 'app/shared/model/invoice.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IInvoiceDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -20,7 +21,7 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
   }
 
   render() {
-    const { invoiceEntity } = this.props;
+    const { invoiceEntity, isAuthenticated, isAdmin } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -85,20 +86,23 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
+          { isAuthenticated && isAdmin &&
           <Button tag={Link} to={`/entity/invoice/${invoiceEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
-          </Button>
+          </Button> }
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = ({ invoice }: IRootState) => ({
-  invoiceEntity: invoice.entity
+const mapStateToProps = ({ invoice, authentication }: IRootState) => ({
+  invoiceEntity: invoice.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { getEntity };

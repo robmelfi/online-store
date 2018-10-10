@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,6 +50,7 @@ public class ProductOrderResource {
      */
     @PostMapping("/product-orders")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<ProductOrder> createProductOrder(@Valid @RequestBody ProductOrder productOrder) throws URISyntaxException {
         log.debug("REST request to save ProductOrder : {}", productOrder);
         if (productOrder.getId() != null) {
@@ -71,6 +73,7 @@ public class ProductOrderResource {
      */
     @PutMapping("/product-orders")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<ProductOrder> updateProductOrder(@Valid @RequestBody ProductOrder productOrder) throws URISyntaxException {
         log.debug("REST request to update ProductOrder : {}", productOrder);
         if (productOrder.getId() == null) {
@@ -119,6 +122,7 @@ public class ProductOrderResource {
      */
     @DeleteMapping("/product-orders/{id}")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteProductOrder(@PathVariable Long id) {
         log.debug("REST request to delete ProductOrder : {}", id);
         productOrderService.delete(id);

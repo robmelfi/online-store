@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,6 +50,7 @@ public class InvoiceResource {
      */
     @PostMapping("/invoices")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Invoice> createInvoice(@Valid @RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to save Invoice : {}", invoice);
         if (invoice.getId() != null) {
@@ -71,6 +73,7 @@ public class InvoiceResource {
      */
     @PutMapping("/invoices")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Invoice> updateInvoice(@Valid @RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to update Invoice : {}", invoice);
         if (invoice.getId() == null) {
@@ -119,6 +122,7 @@ public class InvoiceResource {
      */
     @DeleteMapping("/invoices/{id}")
     @Timed
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
         log.debug("REST request to delete Invoice : {}", id);
         invoiceService.delete(id);
