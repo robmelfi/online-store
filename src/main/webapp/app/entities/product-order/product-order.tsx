@@ -18,8 +18,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './product-order.reducer';
 import { IProductOrder } from 'app/shared/model/product-order.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IProductOrderProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -57,15 +58,16 @@ export class ProductOrder extends React.Component<IProductOrderProps, IProductOr
   };
 
   render() {
-    const { productOrderList, match, totalItems } = this.props;
+    const { productOrderList, match, totalItems, isAuthenticated, isAdmin } = this.props;
     return (
       <div>
         <h2 id="product-order-heading">
           <Translate contentKey="storeApp.productOrder.home.title">Product Orders</Translate>
+          { isAuthenticated && isAdmin &&
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="storeApp.productOrder.home.createLabel">Create new Product Order</Translate>
-          </Link>
+          </Link> }
         </h2>
         <div className="table-responsive">
           <Table responsive>
@@ -115,18 +117,20 @@ export class ProductOrder extends React.Component<IProductOrderProps, IProductOr
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${productOrder.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
+                      </Button> }
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${productOrder.id}/delete`} color="danger" size="sm">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
-                      </Button>
+                      </Button> }
                     </div>
                   </td>
                 </tr>
@@ -147,9 +151,11 @@ export class ProductOrder extends React.Component<IProductOrderProps, IProductOr
   }
 }
 
-const mapStateToProps = ({ productOrder }: IRootState) => ({
+const mapStateToProps = ({ productOrder, authentication }: IRootState) => ({
   productOrderList: productOrder.entities,
-  totalItems: productOrder.totalItems
+  totalItems: productOrder.totalItems,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = {

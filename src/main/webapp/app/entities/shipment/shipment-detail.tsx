@@ -10,7 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './shipment.reducer';
 import { IShipment } from 'app/shared/model/shipment.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IShipmentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -20,7 +21,7 @@ export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
   }
 
   render() {
-    const { shipmentEntity } = this.props;
+    const { shipmentEntity, isAuthenticated, isAdmin } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -58,21 +59,24 @@ export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          { isAuthenticated && isAdmin &&
           <Button tag={Link} to={`/entity/shipment/${shipmentEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
-          </Button>
+          </Button> }
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = ({ shipment }: IRootState) => ({
-  shipmentEntity: shipment.entity
+const mapStateToProps = ({ shipment, authentication }: IRootState) => ({
+  shipmentEntity: shipment.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { getEntity };

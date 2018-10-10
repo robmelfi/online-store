@@ -10,7 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './product-order.reducer';
 import { IProductOrder } from 'app/shared/model/product-order.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IProductOrderDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -20,7 +21,7 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
   }
 
   render() {
-    const { productOrderEntity } = this.props;
+    const { productOrderEntity, isAdmin, isAuthenticated } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -59,20 +60,23 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
+          { isAuthenticated && isAdmin &&
           <Button tag={Link} to={`/entity/product-order/${productOrderEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
-          </Button>
+          </Button> }
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = ({ productOrder }: IRootState) => ({
-  productOrderEntity: productOrder.entity
+const mapStateToProps = ({ productOrder, authentication }: IRootState) => ({
+  productOrderEntity: productOrder.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { getEntity };

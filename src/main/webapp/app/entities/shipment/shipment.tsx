@@ -18,8 +18,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './shipment.reducer';
 import { IShipment } from 'app/shared/model/shipment.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IShipmentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -57,15 +58,16 @@ export class Shipment extends React.Component<IShipmentProps, IShipmentState> {
   };
 
   render() {
-    const { shipmentList, match, totalItems } = this.props;
+    const { shipmentList, match, totalItems, isAuthenticated, isAdmin } = this.props;
     return (
       <div>
         <h2 id="shipment-heading">
           <Translate contentKey="storeApp.shipment.home.title">Shipments</Translate>
+          { isAuthenticated && isAdmin &&
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="storeApp.shipment.home.createLabel">Create new Shipment</Translate>
-          </Link>
+          </Link> }
         </h2>
         <div className="table-responsive">
           <Table responsive>
@@ -111,18 +113,20 @@ export class Shipment extends React.Component<IShipmentProps, IShipmentState> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${shipment.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
+                      </Button> }
+                      { isAuthenticated && isAdmin &&
                       <Button tag={Link} to={`${match.url}/${shipment.id}/delete`} color="danger" size="sm">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
-                      </Button>
+                      </Button> }
                     </div>
                   </td>
                 </tr>
@@ -143,9 +147,11 @@ export class Shipment extends React.Component<IShipmentProps, IShipmentState> {
   }
 }
 
-const mapStateToProps = ({ shipment }: IRootState) => ({
+const mapStateToProps = ({ shipment, authentication }: IRootState) => ({
   shipmentList: shipment.entities,
-  totalItems: shipment.totalItems
+  totalItems: shipment.totalItems,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = {
