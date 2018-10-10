@@ -11,12 +11,14 @@ export const EntitiesMenu = props => (
     <DropdownItem tag={Link} to="/entity/product">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.product" />
     </DropdownItem>
+    {props.isAdmin &&
     <DropdownItem tag={Link} to="/entity/product-category">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.productCategory" />
-    </DropdownItem>
+      <FontAwesomeIcon icon="asterisk"/>&nbsp;<Translate contentKey="global.menu.entities.productCategory"/>
+    </DropdownItem>}
+    {props.isAdmin &&
     <DropdownItem tag={Link} to="/entity/customer">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.customer" />
-    </DropdownItem>
+    </DropdownItem>}
     <DropdownItem tag={Link} to="/entity/product-order">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.productOrder" />
     </DropdownItem>
