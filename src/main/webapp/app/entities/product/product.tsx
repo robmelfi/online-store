@@ -134,7 +134,11 @@ export class Product extends React.Component<IProductProps, IProductState> {
                         <h5 className="mb-1">{product.name}</h5>
                         <small>
                           {product.productCategory ? (
-                            <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.name}</Link>
+                            isAdmin ? (
+                              <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.name}</Link>
+                            ) : (
+                              product.productCategory.name
+                            )
                           ) : (
                             ''
                           )}
