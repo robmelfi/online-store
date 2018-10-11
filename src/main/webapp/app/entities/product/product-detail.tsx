@@ -10,7 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './product.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IProductDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -20,7 +21,7 @@ export class ProductDetail extends React.Component<IProductDetailProps> {
   }
 
   render() {
-    const { productEntity } = this.props;
+    const { productEntity, isAdmin, isAuthenticated } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -79,21 +80,26 @@ export class ProductDetail extends React.Component<IProductDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
-          <Button tag={Link} to={`/entity/product/${productEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
-            </span>
           </Button>
+          {isAuthenticated &&
+            isAdmin && (
+              <Button tag={Link} to={`/entity/product/${productEntity.id}/edit`} replace color="primary">
+                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                <span className="d-none d-md-inline">
+                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                </span>
+              </Button>
+            )}
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = ({ product }: IRootState) => ({
-  productEntity: product.entity
+const mapStateToProps = ({ product, authentication }: IRootState) => ({
+  productEntity: product.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { getEntity };

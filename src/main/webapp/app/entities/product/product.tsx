@@ -74,84 +74,105 @@ export class Product extends React.Component<IProductProps, IProductState> {
       <div>
         <h2 id="product-heading">
           <Translate contentKey="storeApp.product.home.title">Products</Translate>
-          { isAuthenticated && isAdmin &&
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="storeApp.product.home.createLabel">Create new Product</Translate>
-          </Link> }
+          {isAuthenticated &&
+            isAdmin && (
+              <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+                <FontAwesomeIcon icon="plus" />
+                &nbsp;
+                <Translate contentKey="storeApp.product.home.createLabel">Create new Product</Translate>
+              </Link>
+            )}
         </h2>
         <div className="mb-2 d-flex justify-content-end align-items-center">
           <span className="mr-2 col-2">Filter by name</span>
-          <Input type="search" className="form-control" value={this.state.inputFilter} onChange={this.onChangeHandler}/>
-          <span className="col-2 text-right"><Translate contentKey="storeApp.product.sort">Sort by</Translate></span>
+          <Input type="search" className="form-control" value={this.state.inputFilter} onChange={this.onChangeHandler} />
+          <span className="col-2 text-right">
+            <Translate contentKey="storeApp.product.sort">Sort by</Translate>
+          </span>
           <ButtonGroup>
             <Button size="sm" className="btn-light" onClick={this.sort('name')}>
-              <span><Translate contentKey="storeApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" /></span>
+              <span>
+                <Translate contentKey="storeApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+              </span>
             </Button>
             <Button size="sm" className="btn-light" onClick={this.sort('price')}>
-              <span><Translate contentKey="storeApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" /></span>
+              <span>
+                <Translate contentKey="storeApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
+              </span>
             </Button>
             <Button size="sm" className="btn-light" onClick={this.sort('size')}>
-              <span><Translate contentKey="storeApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" /></span>
+              <span>
+                <Translate contentKey="storeApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" />
+              </span>
             </Button>
             <Button size="sm" className="btn-light">
-              <span><Translate contentKey="storeApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" /></span>
+              <span>
+                <Translate contentKey="storeApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" />
+              </span>
             </Button>
           </ButtonGroup>
         </div>
         <div className="mb-1">
           <ListGroup>
-            {productList.filter(p => this.state.inputFilter === '' || p.name.toLowerCase().includes(this.state.inputFilter.toLowerCase()))
+            {productList
+              .filter(p => this.state.inputFilter === '' || p.name.toLowerCase().includes(this.state.inputFilter.toLowerCase()))
               .map((product, i) => (
-              <ListGroupItem action tag="a" href={`#${match.url}/${product.id}`} className="flex-column align-items-start">
-                <Row>
-                  <Col sm="2" xs="12">
-                    <div className="d-flex justify-content-center">
-                      {product.image ? (
-                        <a onClick={openFile(product.imageContentType, product.image)}>
-                          <img src={`data:${product.imageContentType};base64,${product.image}`} style={{ maxHeight: '150px' }} />
-                          &nbsp;
-                        </a>
-                      ) : null}
-                    </div>
-                  </Col>
-                  <Col sm="10" xs="12">
-                    <div className="d-flex w-100 justify-content-between">
-                      <h5 className="mb-1">{product.name}</h5>
+                <ListGroupItem action tag="a" href={`#${match.url}/${product.id}`} className="flex-column align-items-start">
+                  <Row>
+                    <Col sm="2" xs="12">
+                      <div className="d-flex justify-content-center">
+                        {product.image ? (
+                          <a onClick={openFile(product.imageContentType, product.image)}>
+                            <img src={`data:${product.imageContentType};base64,${product.image}`} style={{ maxHeight: '150px' }} />
+                            &nbsp;
+                          </a>
+                        ) : null}
+                      </div>
+                    </Col>
+                    <Col sm="10" xs="12">
+                      <div className="d-flex w-100 justify-content-between">
+                        <h5 className="mb-1">{product.name}</h5>
+                        <small>
+                          {product.productCategory ? (
+                            <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.name}</Link>
+                          ) : (
+                            ''
+                          )}
+                        </small>
+                      </div>
+                      <small className="mb-1">{product.description}</small>
+                      <p className="mb-1">
+                        <Currency quantity={product.price} currency="USD" />
+                      </p>
                       <small>
-                        {product.productCategory ? (
-                          <Link to={`product-category/${product.productCategory.id}`}>{product.productCategory.name}</Link>
-                        ) : (
-                          ''
-                        )}
+                        <Translate contentKey="storeApp.product.size">Size</Translate>
+                        <span>
+                          :&nbsp;
+                          <Translate contentKey={`storeApp.Size.${product.size}`} />
+                        </span>
                       </small>
-                    </div>
-                    <small className="mb-1">{product.description}</small>
-                    <p className="mb-1"><Currency quantity={product.price} currency="USD"/></p>
-                    <small>
-                      <Translate contentKey="storeApp.product.size">Size</Translate>
-                      <span>
-                        :&nbsp;<Translate contentKey={`storeApp.Size.${product.size}`} />
-                      </span>
-                    </small>
-                    { isAuthenticated && isAdmin && <div>
-                      <Button tag={Link} to={`${match.url}/${product.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${product.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>}
-                  </Col>
-                </Row>
-              </ListGroupItem>
-            ))}
+                      {isAuthenticated &&
+                        isAdmin && (
+                          <Button tag={Link} to={`${match.url}/${product.id}/edit`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                        )}
+                      {isAuthenticated &&
+                        isAdmin && (
+                          <Button tag={Link} to={`${match.url}/${product.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        )}
+                    </Col>
+                  </Row>
+                </ListGroupItem>
+              ))}
           </ListGroup>
         </div>
         <Row className="justify-content-center">
