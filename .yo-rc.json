@@ -36,6 +36,8 @@
       "en",
       "it",
       "fr"
-    ]
+    ],
+    "herokuAppName": "rm-online-store",
+    "herokuDeployType": "git"
   }
 }
