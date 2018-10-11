@@ -3,6 +3,8 @@ This Application refers to the book "**Full Stack Development with JHipster** by
 
 In this application the examples of the book are made using React instead of Angular.
 
+[DEMO](https://rm-online-store.herokuapp.com)
+
 This application was generated using JHipster 5.4.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.4.1](https://www.jhipster.tech/documentation-archive/v5.4.1).
 
 ## Development
